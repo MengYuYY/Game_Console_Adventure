@@ -39,7 +39,6 @@ cc.Class({
     },
 
     clickSave(){
-        console.log("save");
         cc.audioEngine.playEffect(this.touchSound);
         //保存音频设置
         cc.audioEngine.setMusicVolume(this.sliders[0].progress);
