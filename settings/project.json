@@ -3,7 +3,8 @@
     "default",
     "Map",
     "Player",
-    "Physics"
+    "Physics",
+    "Ladder"
   ],
   "collision-matrix": [
     [
@@ -12,16 +13,26 @@
     ],
     [
       false,
+      true,
+      true,
+      true,
+      false
+    ],
+    [
       false,
       true,
+      false,
+      null,
       true
     ],
     [
       false,
       true,
+      false,
       false
     ],
     [
+      false,
       false,
       true,
       false,
