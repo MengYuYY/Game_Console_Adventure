@@ -47,100 +47,130 @@ cc.Class({
 	//左右方向键若同时按下,令后输入直接替代前输入,上下同理
 	onKeyDown: function (event) {
 		switch (event.keyCode) {
-			//碰到梯子，且不处于向上移动状态，则将向上移动标志置位true，攀爬标志置为true，且清零y方向速度并播放攀爬动画
 			case cc.macro.KEY.w:
-				if (!this.isUp && this.climbCheck.isTouchLadder) {
-					this.isUp = true;
-					this.isDown = false;
-					this.isClimb = true;
-					this.rb.linearVelocity = cc.v2(0, 0);
-					this.anim.PlayerClimbAnim();
-				}
+				this.UpBegin();
 				break;
-			//向左移动且不是蹲下状态时,则将向左移动标志置为true,向右移动标志置位false,同时翻转玩家,若位于地面,则播放移动动画
 			case cc.macro.KEY.a:
-				if (!this.isLeft && !this.isDuck){
-					this.isLeft = true;
-					this.isRight = false;
-					this.node.scaleX = -Math.abs(this.node.scaleX);
-					if (this.groundCheck.isGround)
-						this.anim.PlayerWalkAnim();
-				}
+				this.LeftBegin();
 				break;
-			//未碰到梯子，且不处于下蹲状态，则将下蹲标志置位true且播放下蹲动画
-			//碰到梯子，且不处于向下移动状态同时不在地面，则将向下移动标志置位true，攀爬标志置为true, 且清零y方向速度并播放攀爬动画
 			case cc.macro.KEY.s:
-				if (!this.isDuck && this.groundCheck.isGround) {
-					this.isDuck = true;
-					this.anim.PlayerDuckAnim();
-				}
-				if (!this.isDown && this.climbCheck.isTouchLadder && !this.groundCheck.isGround) {
-					this.isDown = true;
-					this.isUp = false;
-					this.isClimb = true;
-					this.rb.linearVelocity = cc.v2(0, 0);
-					this.anim.PlayerClimbAnim();
-				}
+				this.DownBegin();				
 				break;
-			//向右移动且不是蹲下状态时,则将向左移动标志置为false,向右移动标志置位true,若位于地面,则播放移动动画
 			case cc.macro.KEY.d:
-				if (!this.isRight && !this.isDuck){
-					this.isRight = true;
-					this.isLeft = false;
-					this.node.scaleX = Math.abs(this.node.scaleX);
-					if (this.groundCheck.isGround)
-						this.anim.PlayerWalkAnim();
-				}
+				this.RightBegin();	
 				break;
-			//位于地面时进行跳跃
 			case cc.macro.KEY.k:
-				if(!this.isJump && this.groundCheck.isGround){
-					this.isJump = true;
-					this.rb.linearVelocity = cc.v2(0, this.jumpHeight);	
-					this.anim.PlayerJumpAnim();
-				}
+				this.JumpBegin();
 				break;
 		}
 	},
 
 	onKeyUp: function (event) {
 		switch (event.keyCode) {
-			//松开w时若位于梯子上，则将向上移动标志置为false且暂停攀爬动画
 			case cc.macro.KEY.w:
-				if (this.climbCheck.isTouchLadder) {
-					this.isUp = false;
-					this.anim.PasuePlayerClimbAnim();
-				}
+				this.UpEnd();
 				break;
-			//松开a时若没有按下d,将向右移动标志置位false,且不处于蹲下和攀爬状态，则播放待机动画
 			case cc.macro.KEY.a:
-				this.isLeft = false;
-				if (!this.isRight && !this.isDuck && !this.isClimb)
-					this.anim.PlayerIdleAnim();
+				this.LeftEnd();
 				break;
-			//松开s时若位于梯子上，则将向下移动标志置为false,且暂停攀爬动画，若位于地面上则下蹲
 			case cc.macro.KEY.s:
-				if(this.groundCheck.isGround){
-					this.isDuck = false;
-					this.anim.PlayerIdleAnim();
-				}else if(this.climbCheck.isTouchLadder) {
-					this.isDown = false;
-					this.anim.PasuePlayerClimbAnim();
-				}
+				this.DownEnd();				
 				break;
-			//松开d时若没有按下a,将向右移动标志置位false，且不处于蹲下和攀爬状态，则播放待机动画
 			case cc.macro.KEY.d:
-				this.isRight = false;
-				if (!this.isLeft && !this.isDuck && !this.isClimb)
-					this.anim.PlayerIdleAnim();
+				this.RightEnd();	
 				break;
-			//松开k时将跳跃标志置为false
 			case cc.macro.KEY.k:
-				this.isJump = false;
+				this.JumpEnd();
 				break;
 		}
-	},
+	},					
 	
+	//碰到梯子，且不处于向上移动状态，则将向上移动标志置位true，攀爬标志置为true，且清零y方向速度并播放攀爬动画
+	UpBegin(){
+		if (!this.isUp && this.climbCheck.isTouchLadder) {
+			this.isUp = true;
+			this.isDown = false;
+			this.isClimb = true;
+			this.rb.linearVelocity = cc.v2(0, 0);
+			this.anim.PlayerClimbAnim();
+		}
+	},
+	//未碰到梯子，且不处于下蹲状态，则将下蹲标志置位true且播放下蹲动画
+	//碰到梯子，且不处于向下移动状态同时不在地面，则将向下移动标志置位true，攀爬标志置为true, 且清零y方向速度并播放攀爬动画
+	DownBegin(){
+		if (!this.isDuck && this.groundCheck.isGround) {
+			this.isDuck = true;
+			this.anim.PlayerDuckAnim();
+		}
+		if (!this.isDown && this.climbCheck.isTouchLadder && !this.groundCheck.isGround) {
+			this.isDown = true;
+			this.isUp = false;
+			this.isClimb = true;
+			this.rb.linearVelocity = cc.v2(0, 0);
+			this.anim.PlayerClimbAnim();
+		}
+	},
+	//向左移动且不是蹲下状态时,则将向左移动标志置为true,向右移动标志置位false,同时翻转玩家,若位于地面,则播放移动动画
+	LeftBegin(){
+		if (!this.isLeft && !this.isDuck){
+			this.isLeft = true;
+			this.isRight = false;
+			this.node.scaleX = -Math.abs(this.node.scaleX);
+			if (this.groundCheck.isGround)
+				this.anim.PlayerWalkAnim();
+		}
+	},
+	//向右移动且不是蹲下状态时,则将向左移动标志置为false,向右移动标志置位true,若位于地面,则播放移动动画
+	RightBegin(){
+		if (!this.isRight && !this.isDuck){
+			this.isRight = true;
+			this.isLeft = false;
+			this.node.scaleX = Math.abs(this.node.scaleX);
+			if (this.groundCheck.isGround)
+				this.anim.PlayerWalkAnim();
+		}
+	},
+	//位于地面时进行跳跃
+	JumpBegin(){
+		if(!this.isJump && this.groundCheck.isGround){
+			this.isJump = true;
+			this.rb.linearVelocity = cc.v2(0, this.jumpHeight);	
+			this.anim.PlayerJumpAnim();
+		}
+	},
+	//松开w时若位于梯子上，则将向上移动标志置为false且暂停攀爬动画
+	UpEnd(){
+		if (this.climbCheck.isTouchLadder) {
+			this.isUp = false;
+			this.anim.PasuePlayerClimbAnim();
+		}
+	},
+	//松开s时若位于梯子上，则将向下移动标志置为false,且暂停攀爬动画，若位于地面上则下蹲
+	DownEnd(){
+		if(this.groundCheck.isGround){
+			this.isDuck = false;
+			this.anim.PlayerIdleAnim();
+		}else if(this.climbCheck.isTouchLadder) {
+			this.isDown = false;
+			this.anim.PasuePlayerClimbAnim();
+		}
+	},					
+	//松开a时若没有按下d,将向右移动标志置位false,且不处于蹲下和攀爬状态，则播放待机动画
+	LeftEnd(){
+		this.isLeft = false;
+		if (!this.isRight && !this.isDuck && !this.isClimb)
+		this.anim.PlayerIdleAnim();		
+	},
+	//松开d时若没有按下a,将向右移动标志置位false，且不处于蹲下和攀爬状态，则播放待机动画	
+	RightEnd(){
+		this.isRight = false;
+				if (!this.isLeft && !this.isDuck && !this.isClimb)
+				this.anim.PlayerIdleAnim();
+	},
+	//松开k时将跳跃标志置为false
+	JumpEnd(){
+		this.isJump = false;
+	},
 	
 
 	Move(dt){
