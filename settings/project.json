@@ -3,10 +3,9 @@
     "defaul",
     "Map",
     "Player",
-    "Physics",
     "Ladder",
     "Trap",
-    "Item"
+    "Item",
   ],
   "collision-matrix": [
     [
@@ -14,7 +13,7 @@
     ],
     [
       false,
-      true,
+      false,
       true,
       true,
       false
@@ -24,7 +23,9 @@
       true,
       false,
       null,
-      true
+      true,
+      true,
+      false
     ],
     [
       false,
@@ -47,6 +48,23 @@
       false,
       false,
       true,
+      false
+    ],
+    [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false
+    ],
+    [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
       false
     ]
   ],
