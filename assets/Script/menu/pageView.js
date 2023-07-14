@@ -12,22 +12,28 @@ cc.Class({
         moveTime:{
             default:0.5,
             type: Number,
+            tooltip:"切换场景选项动作耗费的时间",
         },
         nonSelectOpacity:{
             default:120,
             type: Number,
+            tooltip:"未选中节点的节点透明度",
         },
         selectScale:{
             default:1.2,
             type:Number,
+            tooltip:"被选中节点的节点缩放程度",
+        },
+        itemSpace:{
+            default:300,
+            type:Number,
+            tooltip:"容器节点间的间隔",
         }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        //每个节点间隔按250计算
-
         //注册触摸监听事件
         this.node.on(cc.Node.EventType.TOUCH_MOVE,this.moveToSelect,this);
 
@@ -82,7 +88,7 @@ cc.Class({
                 //view中节点全部进行缓动
                 for(let i=0;i<items.length;i++){
                     cc.tween(items[i]).by(this.moveTime,{
-                        x:arrow*250,
+                        x:arrow*this.itemSpace,
                         opacity:i==this.select?this.nonSelectOpacity-255:(i==nextSelect?255:0),
                         scale:i==this.select?1-this.selectScale:(i==nextSelect?this.selectScale-1:0),
                     }).call(()=>{
