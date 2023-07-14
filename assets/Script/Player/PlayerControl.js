@@ -19,15 +19,14 @@ cc.Class({
 		//开启物理系统和碰撞检测
 		cc.director.getPhysicsManager().enabled = true;
 		cc.director.getCollisionManager().enabled = true;
-		cc.director.getCollisionManager().enabledDebugDraw = true;
+		// cc.director.getCollisionManager().enabledDebugDraw = true;
 		//注册键盘事件
 		cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
 		cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
 		//获取组件
 		this.anim = this.node.getComponent('PlayerAnim');
 		this.rb = this.node.getComponent(cc.RigidBody);
-		this.climbCheck = this.node.getComponent('StatusCheck');
-		this.groundCheck = cc.find('GroundCheck', this.node).getComponent('StatusCheck');
+		this.physicsCheck = this.node.getComponent('StatusCheck');
 		//初始化标志
 		this.isUp = false;
 		this.isDown = false;
@@ -87,7 +86,7 @@ cc.Class({
 	
 	//碰到梯子，且不处于向上移动状态，则将向上移动标志置位true，攀爬标志置为true，且清零y方向速度并播放攀爬动画
 	UpBegin(){
-		if (!this.isUp && this.climbCheck.isTouchLadder) {
+		if (!this.isUp && this.physicsCheck.isTouchLadder) {
 			this.isUp = true;
 			this.isDown = false;
 			this.isClimb = true;
@@ -98,11 +97,11 @@ cc.Class({
 	//未碰到梯子，且不处于下蹲状态，则将下蹲标志置位true且播放下蹲动画
 	//碰到梯子，且不处于向下移动状态同时不在地面，则将向下移动标志置位true，攀爬标志置为true, 且清零y方向速度并播放攀爬动画
 	DownBegin(){
-		if (!this.isDuck && this.groundCheck.isGround) {
+		if (!this.isDuck && this.physicsCheck.isGround) {
 			this.isDuck = true;
 			this.anim.PlayerDuckAnim();
 		}
-		if (!this.isDown && this.climbCheck.isTouchLadder && !this.groundCheck.isGround) {
+		if (!this.isDown && this.physicsCheck.isTouchLadder && !this.physicsCheck.isGround) {
 			this.isDown = true;
 			this.isUp = false;
 			this.isClimb = true;
@@ -116,7 +115,7 @@ cc.Class({
 			this.isLeft = true;
 			this.isRight = false;
 			this.node.scaleX = -Math.abs(this.node.scaleX);
-			if (this.groundCheck.isGround)
+			if (this.physicsCheck.isGround)
 				this.anim.PlayerWalkAnim();
 		}
 	},
@@ -126,13 +125,13 @@ cc.Class({
 			this.isRight = true;
 			this.isLeft = false;
 			this.node.scaleX = Math.abs(this.node.scaleX);
-			if (this.groundCheck.isGround)
+			if (this.physicsCheck.isGround)
 				this.anim.PlayerWalkAnim();
 		}
 	},
 	//位于地面时进行跳跃
 	JumpBegin(){
-		if(!this.isJump && this.groundCheck.isGround){
+		if(!this.isJump && this.physicsCheck.isGround){
 			this.isJump = true;
 			this.rb.linearVelocity = cc.v2(0, this.jumpHeight);	
 			this.anim.PlayerJumpAnim();
@@ -140,17 +139,17 @@ cc.Class({
 	},
 	//松开w时若位于梯子上，则将向上移动标志置为false且暂停攀爬动画
 	UpEnd(){
-		if (this.climbCheck.isTouchLadder) {
+		if (this.physicsCheck.isTouchLadder) {
 			this.isUp = false;
 			this.anim.PasuePlayerClimbAnim();
 		}
 	},
 	//松开s时若位于梯子上，则将向下移动标志置为false,且暂停攀爬动画，若位于地面上则下蹲
 	DownEnd(){
-		if(this.groundCheck.isGround){
+		if(this.physicsCheck.isGround){
 			this.isDuck = false;
 			this.anim.PlayerIdleAnim();
-		}else if(this.climbCheck.isTouchLadder) {
+		}else if(this.physicsCheck.isTouchLadder) {
 			this.isDown = false;
 			this.anim.PasuePlayerClimbAnim();
 		}
@@ -171,8 +170,7 @@ cc.Class({
 	JumpEnd(){
 		this.isJump = false;
 	},
-	
-
+	//移动
 	Move(dt){
 		//非蹲下状态时检测左右移动
 		if(!this.isDuck){
@@ -195,7 +193,7 @@ cc.Class({
     update (dt) {
 		this.Move(dt);
 		//碰到地面或离开梯子范围，结束攀爬状态,重力回归正常
-		if ((this.groundCheck.isGround && this.isDown) || !this.climbCheck.isTouchLadder){
+		if ((this.physicsCheck.isGround && this.isDown) || !this.physicsCheck.isTouchLadder){
 			this.isClimb = false;
 			cc.director.getPhysicsManager().gravity = this.gravity;
 		}
@@ -203,17 +201,17 @@ cc.Class({
 		if(this.isClimb)
 			cc.director.getPhysicsManager().gravity = cc.v2(0, 0);
 		//从空中接触地面，重置动画状态
-		if (this.groundCheck.isReset){
+		if (this.physicsCheck.isReset){
 			if (this.isLeft ^ this.isRight)
 				this.anim.PlayerWalkAnim();
 			else
 				this.anim.PlayerIdleAnim();
-			this.groundCheck.isReset = false;
+			this.physicsCheck.isReset = false;
 		}
 		//从梯子滑落，清除攀爬动画
-		if(this.climbCheck.isFall){
+		if(this.physicsCheck.isFall){
 			this.anim.PlayerIdleAnim();
-			this.climbCheck.isFall = false;
+			this.physicsCheck.isFall = false;
 		}
 	},
 });
