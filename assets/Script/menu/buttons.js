@@ -27,9 +27,9 @@ cc.Class({
     //主菜单点击游戏开始
     clickButtonStart(){
         cc.audioEngine.playEffect(this.touchSound);
-        cc.tween(this.node.parent).to(2,{x:-1280,angle:360}).call(()=>{
+        cc.tween(this.node.parent).to(1,{x:-1280,angle:360}).call(()=>{
             //加载游戏场景
-            cc.director.loadScene("menu");
+            cc.director.loadScene("select");
         }).start();
     },
 

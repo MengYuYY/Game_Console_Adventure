@@ -35,7 +35,7 @@ cc.Class({
         this.actionFlag=false;
 
         //初始化当前选中节点,存储的为节点下标
-        this.select = 1;
+        this.select = 0;
     },
 
     //鼠标在视图移动
@@ -65,7 +65,7 @@ cc.Class({
             //预先创建边界缓动
             let leftBlock = cc.tween().by(0.1,{x:-30})
             let rightBlock = cc.tween().by(0.1,{x:30});
-            
+
             //计算下一个会被选中的节点
             nextSelect = this.select-arrow;
 
