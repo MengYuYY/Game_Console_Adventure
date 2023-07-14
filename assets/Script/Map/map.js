@@ -10,8 +10,8 @@ cc.Class({
         cc.director.getPhysicsManager().enabled = true;
         //cc.director.getPhysicsManager().debugDrawFlags = true;
         cc.director.getCollisionManager().enabled = true;
-        cc.director.getCollisionManager().debugDrawFlags = true;
-        cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+        //cc.director.getCollisionManager().debugDrawFlags = true;
+        //cc.director.getCollisionManager().enabledDrawBoundingBox = true;
         this.initMapNode(this.mapNode);
     },
     initMapNode(mapNode) {
@@ -31,6 +31,8 @@ cc.Class({
                     let collider = tiled.node.addComponent(cc.PhysicsBoxCollider);
                     collider.offset = cc.v2(tiledSize.width / 2, tiledSize.height / 2);
                     collider.size = tiledSize;
+                    body2.offset = cc.v2(tiledSize.width / 2, tiledSize.height / 2);
+                    body2.size = tiledSize;
                     collider.apply();
                 }
             }
