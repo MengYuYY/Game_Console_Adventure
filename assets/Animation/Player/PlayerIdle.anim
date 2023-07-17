@@ -20,8 +20,48 @@
         ]
       },
       "cc.PhysicsBoxCollider": {
-        "size": [],
-        "offset": []
+        "size": [
+          {
+            "frame": 0,
+            "value": {
+              "__type__": "cc.Size",
+              "width": 52.5,
+              "height": 65.2
+            }
+          }
+        ],
+        "offset": [
+          {
+            "frame": 0,
+            "value": {
+              "__type__": "cc.Vec2",
+              "x": -0.8,
+              "y": 32.8
+            }
+          }
+        ]
+      },
+      "cc.BoxCollider": {
+        "offset": [
+          {
+            "frame": 0,
+            "value": {
+              "__type__": "cc.Vec2",
+              "x": -0.9,
+              "y": 35.1
+            }
+          }
+        ],
+        "size": [
+          {
+            "frame": 0,
+            "value": {
+              "__type__": "cc.Size",
+              "width": 43.9,
+              "height": 61.6
+            }
+          }
+        ]
       }
     }
   },

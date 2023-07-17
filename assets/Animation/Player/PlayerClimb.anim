@@ -52,6 +52,28 @@
             }
           }
         ]
+      },
+      "cc.BoxCollider": {
+        "offset": [
+          {
+            "frame": 0,
+            "value": {
+              "__type__": "cc.Vec2",
+              "x": -5.3,
+              "y": 35.1
+            }
+          }
+        ],
+        "size": [
+          {
+            "frame": 0,
+            "value": {
+              "__type__": "cc.Size",
+              "width": 48.4,
+              "height": 61.6
+            }
+          }
+        ]
       }
     }
   },
