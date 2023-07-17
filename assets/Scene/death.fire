@@ -604,6 +604,9 @@
       "__id__": 4
     },
     "_enabled": true,
+    "audioOver": {
+      "__uuid__": "769827d5-4001-4be2-a228-231e13a0fc16"
+    },
     "_id": "9b9CGrtd5P4bKhRdEa5kRc"
   },
   {

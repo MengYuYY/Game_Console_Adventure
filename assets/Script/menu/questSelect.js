@@ -28,24 +28,28 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        this.audioPlay = this.node.parent.getComponent("AudioApi");
+    },
 
     start () {
 
     },
 
     clickReturn(){
+        this.audioPlay.menuTouch();
         cc.director.loadScene("menu");
     },
 
     clickGameStart(){
+        this.audioPlay.menuGameStart();
         this.node.parent.getChildByName("block").active=true;
         this.node.getComponent(cc.Animation).play("selectMenu");
     },
 
     loadGameScene(){
         let selected = this.node.getChildByName("selectView").getChildByName("content").getComponent("pageView").select;
-        cc.director.loadScene("death");
+        cc.director.loadScene("gameClear");
     },
 
     loadSelectScene(){

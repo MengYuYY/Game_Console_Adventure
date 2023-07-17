@@ -42,6 +42,8 @@ cc.Class({
 
         //初始化当前选中节点,存储的为节点下标
         this.select = 0;
+
+        this.audioPlay = this.node.parent.parent.parent.getComponent("AudioApi")
     },
 
     //鼠标在视图移动
@@ -76,15 +78,18 @@ cc.Class({
             nextSelect = this.select-arrow;
 
             if(nextSelect < 0){
-                    cc.tween(items[0]).sequence(rightBlock,leftBlock).call(()=>{
-                        this.actionFlag=false;
-                    }).start();
+                this.audioPlay.menuSelectDisable();
+                cc.tween(items[0]).sequence(rightBlock,leftBlock).call(()=>{
+                    this.actionFlag=false;
+                }).start();
 
             }else if(nextSelect >=items.length){
-                    cc.tween(items[items.length-1]).sequence(leftBlock,rightBlock).call(()=>{
-                        this.actionFlag=false;
-                    }).start();
+                this.audioPlay.menuSelectDisable();
+                cc.tween(items[items.length-1]).sequence(leftBlock,rightBlock).call(()=>{
+                    this.actionFlag=false;
+                }).start();
             }else{
+                this.audioPlay.menuSelectMove();
                 //view中节点全部进行缓动
                 for(let i=0;i<items.length;i++){
                     cc.tween(items[i]).by(this.moveTime,{
