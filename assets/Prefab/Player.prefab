@@ -191,13 +191,13 @@
     "tag": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 2,
-      "y": 32
+      "x": 0.6,
+      "y": 35.1
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 39,
-      "height": 43
+      "width": 46.5,
+      "height": 61.6
     },
     "_id": ""
   },
@@ -290,6 +290,7 @@
     "isTouchLadder": false,
     "isFall": false,
     "isReset": false,
+    "isDeath": false,
     "_id": ""
   },
   {
