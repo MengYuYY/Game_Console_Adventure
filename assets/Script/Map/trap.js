@@ -13,6 +13,8 @@ cc.Class({
 
     },
     onCollisionEnter(other, self) {
-        other.node.destory();
+        if (other.node.group == 'Player') {
+            console.log("fail");
+        }
     },
 });

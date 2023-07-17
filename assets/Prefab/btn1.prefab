@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "brikc01",
+    "_name": "btn1",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -36,20 +36,20 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 64,
-      "height": 64
+      "width": 57,
+      "height": 21
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        896,
-        512,
+        800,
+        649,
         0,
         0,
         0,
@@ -89,7 +89,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "7a2c091e-2428-41e5-9132-4e04c807a21e"
+      "__uuid__": "521be990-9641-4431-816f-916d3bfbe15c"
     },
     "_type": 0,
     "_sizeMode": 1,

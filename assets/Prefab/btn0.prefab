@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "brick02",
+    "_name": "btn0",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -21,10 +21,13 @@
     "_components": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 3
+      "__id__": 4
     },
     "_opacity": 255,
     "_color": {
@@ -36,20 +39,20 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 64,
-      "height": 64
+      "width": 56,
+      "height": 33
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_trs": {
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        960,
-        512,
+        800,
+        654,
         0,
         0,
         0,
@@ -69,8 +72,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 1,
+    "groupIndex": 1,
     "_id": ""
   },
   {
@@ -89,7 +92,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "7a2c091e-2428-41e5-9132-4e04c807a21e"
+      "__uuid__": "5a3467fd-01b5-4c97-a6a9-ae8516b7211b"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -103,6 +106,27 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 56,
+      "height": 33
+    },
     "_id": ""
   },
   {
