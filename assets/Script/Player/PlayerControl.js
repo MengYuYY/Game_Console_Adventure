@@ -189,9 +189,15 @@ cc.Class({
 		//避免因碰撞而导致打滑现象
 		this.rb.linearVelocity = cc.v2(0, this.rb.linearVelocity.y);
 	},
+	//玩家死亡
+	Death(){
+		console.log("death")
+	},
 
     update (dt) {
 		this.Move(dt);
+		if(this.physicsCheck.isDeath)
+			this.Death();
 		//碰到地面或离开梯子范围，结束攀爬状态,重力回归正常
 		if ((this.physicsCheck.isGround && this.isDown) || !this.physicsCheck.isTouchLadder){
 			this.isClimb = false;

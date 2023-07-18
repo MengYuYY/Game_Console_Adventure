@@ -14,7 +14,7 @@ cc.Class({
     initMapNode(mapNode) {
         let tileMap = mapNode.getComponent(cc.TiledMap);
         let tiledSize = tileMap.getTileSize();
-        let layer = tileMap.getLayer('ground');
+        let layer = tileMap.getLayer('trap');
         let layerSize = layer.getLayerSize();
         console.log(layerSize);
         for (let i = 0; i < layerSize.width; i++){

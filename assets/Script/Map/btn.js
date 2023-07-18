@@ -17,10 +17,11 @@ cc.Class({
     },
     onCollisionEnter(other, self) {
         if (other.node.group == 'Player') {         
-            this.btn.destroy();
             for (let i = 0; i < this.bricks.length; i++){
                 this.bricks[i].active = true;
+                console.log(this.bricks[i].active)
             }
+            this.btn.destroy();
         }
     }
 });

@@ -20,6 +20,9 @@ cc.Class({
 			this.isGround = true;
 			this.isReset = true;
 		}
+		//判断是否接触陷阱
+		if(other.node.group == 'Trap')
+			this.isDeath = true;
 	},
 
 	onCollisionExit: function (other, self) {
