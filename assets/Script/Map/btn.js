@@ -4,12 +4,12 @@ cc.Class({
 
     properties: {
         btn: cc.Node,
-        brick1: cc.Node,
-        brick2:cc.Node
+        bricks:[cc.Node]
     },
     onLoad() {
-        this.brick1.active = false;
-        this.brick2.active = false;
+        for (let i = 0; i < this.bricks.length; i++){
+            this.bricks[i].active = false;
+        }
         cc.director.getCollisionManager().enabled = true;
     },
     start () {
@@ -18,8 +18,9 @@ cc.Class({
     onCollisionEnter(other, self) {
         if (other.node.group == 'Player') {         
             this.btn.destroy();
-            this.brick1.active = true;
-            this.brick2.active = true;
+            for (let i = 0; i < this.bricks.length; i++){
+                this.bricks[i].active = true;
+            }
         }
     }
 });
