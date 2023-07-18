@@ -9,29 +9,16 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+        touchSound:{
+            default:null,
+            type:cc.AudioClip,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.updateOptions();
-        //加载触碰音效
-        this.touchSound = this.node.parent.getChildByName("Canvas").getComponent("menu").touchSound;
     },
 
     start () {
@@ -53,9 +40,11 @@ cc.Class({
         console.log("cross");
         cc.audioEngine.playEffect(this.touchSound);
         //收回设置菜单
-        cc.tween(this.node).to(0.5,{y:900},{easing:"elasticIn"}).call(()=>{
+        cc.tween(this.node).by(0.5,{y:600},{easing:"elasticIn"}).call(()=>{
             this.updateOptions();
-            this.node.parent.getChildByName("menu Block").active=false;
+            if(this.node.parent.getChildByName("menu Block")!=null)
+                this.node.parent.getChildByName("menu Block").active=false;
+            this.node.destroy();
         }).start();
     },
 
@@ -67,6 +56,10 @@ cc.Class({
         //第1个为音效slider
         this.sliders[1].progress = cc.audioEngine.getEffectsVolume();
     },
+
+    clickReturn(){
+        cc.director.loadScene("menu");
+    }
 
     // update (dt) {},
 });

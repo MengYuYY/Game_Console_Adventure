@@ -9,6 +9,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        menuPrefab:{
+            default:null,
+            type:cc.Prefab,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -36,8 +40,13 @@ cc.Class({
     //主菜单点击设置
     clickButtonOption(){
         cc.audioEngine.playEffect(this.touchSound);
+        //根据预制体生成节点
+        var menu = cc.instantiate(this.menuPrefab);
         let father = this.node.parent.parent;
+        father.addChild(menu);
         father.getChildByName("menu Block").active=true;
+        menu.setPosition(father.getChildByName("Canvas").width/2,father.getChildByName("Canvas").height+120);
+        
         cc.tween(father.getChildByName("option menu")).to(0.5,{y:father.getChildByName("Canvas").height/2},{easing:"elasticOut"}).start();
     },
 

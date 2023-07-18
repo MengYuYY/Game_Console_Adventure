@@ -14,6 +14,10 @@ cc.Class({
         portalColdTime: 2,
         portalEnable: true,
         questID: 0,
+        menuPrefab:{
+            default:null,
+            type:cc.Prefab,
+        }
     },
     
     GetDiamond(){
@@ -75,5 +79,18 @@ cc.Class({
     start(){
         //播放背景音乐
         this.audioPlay.sceneBackground();
+    },
+
+    clickPause(){
+        this.audioPlay.menuTouch();
+        //根据预制体生成节点
+        var pauseMenu = cc.instantiate(this.menuPrefab);
+        pauseMenu.getChildByName("exit").active=true;
+        var father = this.node.parent.getChildByName("Canvas");
+        father.addChild(pauseMenu);
+        pauseMenu.setPosition(0,father.height/2+120);
+        pauseMenu.scale=0.5
+        //菜单弹出动画
+        cc.tween(pauseMenu).to(0.5,{y:0},{easing:"elasticOut"}).start();
     }
 });
