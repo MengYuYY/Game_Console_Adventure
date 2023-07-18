@@ -10,6 +10,8 @@ cc.Class({
     },
 
 	onCollisionStay: function (other, self) {
+		if(other.node.group == 'Map')
+			this.unschedule(this.callback);
 		//判断是否触碰到梯子
 		if (other.node.group == 'Ladder')
 			this.isTouchLadder = true; 
@@ -29,7 +31,11 @@ cc.Class({
 				this.isFall = true;
 		}
 		//判断是否位于地面
-		if (other.node.group == 'Map')
-			this.isGround = false;
+		if (other.node.group == 'Map'){
+			this.callback = () => {
+				this.isGround = false;
+			}
+			this.scheduleOnce(this.callback, 0.01);	
+		}		
 	},
 });
